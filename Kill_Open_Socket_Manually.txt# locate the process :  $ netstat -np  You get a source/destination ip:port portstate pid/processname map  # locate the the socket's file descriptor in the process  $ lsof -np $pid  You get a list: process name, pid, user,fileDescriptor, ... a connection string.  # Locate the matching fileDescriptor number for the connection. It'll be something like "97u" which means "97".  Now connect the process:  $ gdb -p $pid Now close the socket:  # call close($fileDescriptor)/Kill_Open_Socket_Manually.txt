@@ -1,0 +1,28 @@
+# locate the process :
+
+$ netstat -np
+
+You get a source/destination ip:port portstate pid/processname map
+
+# locate the the socket's file descriptor in the process
+
+$ lsof -np $pid
+
+You get a list: process name, pid, user,fileDescriptor, ... a connection string.
+
+# Locate the matching fileDescriptor number for the connection. It'll be something like "97u" which means "97".
+
+Now connect the process:
+
+$ gdb -p $pid
+Now close the socket:
+
+# call close($fileDescriptor) //does not need ; at end.
+example:
+
+$ call close(97)
+
+# Then detach gdb:
+$ quit
+
+And the socket is closed.
