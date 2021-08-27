@@ -1,0 +1,55 @@
+# WebPage load improvement suggestions, tweaks, guidelines and hacks 
+1. Separate domain for Serving Static Content & diff domain for Images to reduce blocking time and also reduce request header by reducing Cookies sent in header
+2. Lazy load of Website Images
+3. Lazy load of iframe using JS such as youtube etc. refer. either using image or load after page load.
+refer. https://medium.com/@ryanlebel/speed-up-page-load-time-c6b9148d0a2 
+https://stackoverflow.com/questions/1092071/why-are-iframes-so-slow  
+4. Remove unwanted or limited use of 3rd Party plugins or use only specific plugins instead of all the package
+5. Lazy load of Html Root Document Content if content are large size in async ajax call
+6. Provision to Breakdown of Home Page or any Layout 
+7. Remove and cleanup of app.js to have only required functions
+8. small icon such as fb, twitter, google etc should be converted into smaller physical size or load inline to avoid waiting time => taking almost 0.5s to load 
+9. Use of Gallery in Backend to choose most commonly and repeatedly used images such as fb, insta icons to reduce loading of multiple similar images in diff request
+10. Lazy icon loading. refers https://github.com/arjenkarel/lazyicon 
+11. Serve font from cdn & Async Load Google Fonts
+12. Enable Gzip Compression in Apache in http.conf or .htaccess file and other settings as mention in below URL
+https://github.com/h5bp/server-configs-apache
+13. Static Content Expiry header to be set properly. Appearing two expires header in response of Static content on UAT
+14. JPG is best for photographs, SVG for vector images(logo or icons in css), and PNG for everything else. WebP for computer-generated images, such as charts, branding and logos.
+15. Use image tools to reduce file sizes by striping metadata[Exif or IPTC (International Press Telecommunications Council) format: details like the camera model, date and time, aperture, shutter speed, focal length, metering mode, ISO, and location.] and increasing compression factors. 
+16. Avoid @import in css instead use Multiple <link> tags within the HTML will load CSS files in parallel
+17. Reduce CSS Code
+18. a recalculation before painting will be more costly in terms of performance. border-radius, box-shadow, opacity, transform, filter, position: fixed
+19. Adopt SVG Images xml for fixed small icons
+20. Avoid Base64 Bitmap Images. base64 encoding is typically 30% larger than its binary equivalent
+21. Disable Hotlinking For Your Images
+22. To fix auto updation cache content. Add a fingerprint (MD5, timestamp, etc.) to your image URLs so that they will change in case of image updates, causing the browser to refetch the images
+23. different size static image  for diff size devices. <img srcset="small.jpg 256w, medium.jpg 512w, large.jpg 1024w" src="medium.jpg" alt="It’s responsive!" />
+24. https://3perf.com/blog/link-rels/
+25. Use of Observer:
+https://medium.com/@jitubutwal144/different-types-of-observers-supported-by-modern-browsers-4db7a86f6b9d
+
+a. Mutation Observer: To watch for changes being made to the DOM tree
+https://indepth.dev/posts/1348/observer-apis-in-javascript-part-i
+https://stackoverflow.com/questions/9778962/handler-for-dynamically-created-dom-nodes-as-they-are-inserted
+https://eager.io/blog/three-real-world-use-cases-for-mutation-observer/
+
+b. Intersection Observer: To use instead of onScroll event wherer lots of logic require
+Playing video only when it appear in viewport
+https://codepen.io/jitubutwal144/pen/MrNmNW
+https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver
+
+c.Resize
+https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver
+
+d. Performance Observer
+https://gist.github.com/JMPerez/b95d0f96780ba60424e1f9b1026130f9
+
+26. Web Related Changes
+https://developers.google.com/web/updates/2016/06/performance-observer
+
+
+
+
+
+
