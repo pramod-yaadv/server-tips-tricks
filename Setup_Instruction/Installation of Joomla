@@ -1,0 +1,139 @@
+Installation of Joomla
+
+Joomla Requirements
+1. Apache
+2. MySQL
+3. PHP (Latest Version)
+
+#######################################
+tar -zxvf httpd-2.2.19.tar.gz
+
+cd httpd-2.2.19
+
+yum install gcc-c++ gcc openssl-devel -y
+
+./configure --prefix=/opt/apache/ --enable-mods-shared=all --enable-ssl --enable-deflate --enable-proxy --enable-proxy-ajp --with-included-apr
+make && make install
+
+/opt/apache/bin/apachectl start
+
+telnet localhost 80
+
+
+##################################
+
+Installation of Apache-Tomcat Connector.
+
+tar -zxvf tomcat-connectors-1.2.23-src.tar.gz
+
+cd tomcat-connectors-1.2.23-src/native/
+
+./configure --with-apxs=/opt/apache/bin/apxs
+
+make
+
+cd apache-2.0/
+
+cp -a mod_jk.so /opt/apache/modules
+
+vim /opt/apache/conf/httpd.conf
+
+Include /opt/apache/conf.d/*.conf
+Include /opt/anm/config/apache/*.conf
+
+Save and Exit
+##################################
+Installation of MYSQL
+
+tar -zxvf mysql-5.5.12.tar.gz
+
+cd mysql-5.5.12
+
+useradd mysql
+
+yum install ncurses-devel -y
+
+cmake -DCMAKE_INSTALL_PREFIX=/opt/mysql -DMYSQL_DATADIR=/opt/mysql/data
+
+make && make install
+
+cd /opt/mysql/scripts/
+
+./mysql_install_db --user=mysql --basedir=/opt/mysql --datadir=/opt/mysql/data/
+
+chown -R mysql:mysql /opt/mysql/
+
+chown -R mysql:mysql /opt/mysql/data/
+
+cd ..
+
+cp support-files/my-large.cnf /etc/my.cnf
+
+cp support-files/mysql.server /etc/init.d/mysqld
+
+chmod +x /etc/init.d/mysqld
+
+/etc/init.d/mysqld start
+
+telnet localhost 3306
+###################################
+Installation of JDK
+
+./jdk-6u26-linux-x64-rpm.bin
+
+java -version
+
+###################################
+Installation of PHP
+
+tar -zxvf php-5.5.14.tar.gz
+
+cd php-5.5.14
+
+yum install xml2-config libxml2 libxml2-devel libcurl libcurl-devel curl-devel libxslt-devel
+
+./configure --prefix=/opt/php --with-apxs2=/opt/apache/bin/apxs --with-config-file-path=/opt/php --with-libdir=lib64 --enable-mbstring --with-mysql=/opt/mysql/lib64 --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-gd --with-zlib --enable-zip --with-xsl --enable-sockets --enable-soap --with-gettext --enable-exif --with-jpeg-dir=/usr/lib64  --with-zlib-dir --with-curl
+
+make && make install
+
+####################################
+
+Installation of Joomla
+
+Download the Joomla Setup form http://www.joomla.org/download.html
+
+wget https://github.com/joomla/joomla-cms/releases/download/3.4.1/Joomla_3.4.1-Stable-Full_Package.zip
+
+unzip Joomla_3.4.1-Stable-Full_Package.zip
+
+cd Joomla/installation
+
+cp configuration.php-dist configuration.php
+
+vim configuration.php
+
+In this file make Database related changes such as DB Name, DB User, DB Password, and DB Host. Now save and close the file.
+
+Now configure Virtual Host and set DocumentRoot 
+
+Check Apache Syntex and Restart or Graceful apache web server.
+
+Login to MySQL server.
+
+Create database 
+
+mysql> create database joomla;
+
+Grant privilege on joomla database for “joomla” user in MySQL
+
+mysql> grant all on joomla.* to joomla@'localhost' identified by 'joomla';
+
+mysql> flush privileges;
+
+Now restart the MySQL server and Open your browser and type created domain name. 
+
+
+
+
+
+

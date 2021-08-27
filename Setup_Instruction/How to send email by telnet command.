@@ -1,0 +1,30 @@
+How to send email by telnet 
+
+pramod@pramod:~$ telnet smtp.gmail4.com 25
+Trying 24.178.252.101...
+Connected to smtp.gmail4.com.
+Escape character is '^]'.
+220 p3plsmtpfh-03.prod.phx3.adfge.net  ESMTP
+EHLO smtpout.secureserver.net
+250-p3plsmtpa11-03.prod.phx3.secureservdw.net hello [61.12.31.51], shgrd.com
+250-HELP
+250-AUTH LOGIN PLAIN
+250-SIZE 31457280
+250-PIPELINING
+250-8BITMIME
+250 OK
+AUTH LOGIN
+334 VXNlcm5hbWU6
+aW5mb0BzdXJmd2l0aGFsYmF0cm9zcy5jb20= (Encoding Base65 Username)
+334 UGFzc3dvcmQ6
+UEBzc3cwcmQ= (Encoding Base65  Password)
+235 ... authentication succeeded :: Sy331q00E16AiS501
+MAIL FROM:info@dsge.com
+250 <info@gfdhet.com> sender ok
+RCPT TO:pramod.yaadv@gmail.com
+250 <ypramod007@gmail.com> recipient ok
+DATA
+354 enter mail, end with "." on a line by itself
+Subject Test using Telnet - By Pramod
+.
+250 Sy331q00E16AiS501 mail accepted for delivery

@@ -1,0 +1,32 @@
+# How to create Jboss Node Setup.
+
+Copy Jboss from Local System to /opt on Server.
+
+Extrace the Jboss Server.
+
+vim /opt/jboss-4.0.2.node1/bin/run.sh
+
+Change the below parameter as per the node setup.
+
+-Ddeploy.dir=/opt/wars/node1 -Dnode.id=1 -Djvm.route=node1 -Djvm.port=18009 -Xms1024m -Xmx1024m
+
+Now goto /opt/wars/node1 directory. If directory is not there we need to create the same.
+
+Take war and database configuration file from the Developers and copy the same on deployed directory.
+
+Now start the jboss server.
+
+cd /opt/jboss-4.0.2.node1/bin
+
+./run.sh &
+
+and check jboss server logs.
+
+Logs are located in /opt/logs/node1/ directories.
+
+tailf -f jbossserver.log  check there is any error or not.
+
+If jboss start check with using telnet command.
+
+telnet localhost 18009
+

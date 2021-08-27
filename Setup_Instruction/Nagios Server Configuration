@@ -1,0 +1,87 @@
+Nagios Server Configuration.
+
+Download the Nagios Server Setup from https://www.nagios.org/download.html.
+
+cd /opt/
+
+wget http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-3.4.3.tar.gz
+
+tar -zxvf nagios-3.4.3.tar.gz
+
+cd nagios-3.4.3
+
+useradd nagios
+
+passwd nagios
+
+groupadd nagcmd
+
+usermod -a -G nagcmd nagios
+
+usermod -a -G nagcmd apache
+
+./configure --prefix=/nagios --with-command-group=nagcmd --with-httpd-conf=/opt/apache/conf.d/
+
+make all
+
+make install
+
+make install-init
+
+make install-config
+
+make install-commandmode
+
+make install-webconf
+
+htpasswd -c /nagios/etc/htpasswd.users nagiosadmin
+
+Ser New Password for Nagios Console.
+
+###############################################################
+Now Download the Nagios Plugins
+
+cd /opt
+
+wget http://prdownloads.sourceforge.net/sourceforge/nagiosplug/nagios-plugins-1.4.16.tar.gz
+
+tar -zxvf nagios-plugins-1.4.16.tar.gz
+
+cd nagios-plugins-1.4.16
+
+./configure --with-nagios-user=nagios --with-nagios-group=nagcmd --prefix=/nagios
+
+make 
+
+make install
+
+chkconfig --add nagios
+
+chkconfig nagios on
+
+/nagios/bin/nagios -v /nagios/etc/nagios.cfg
+
+Now start the nagios.
+
+/etc/init.d/nagios start | stop | restart | reload
+
+Open your browser and type http://localhost/nagios
+
+################################################################
+Now install NRPE in Nagios Server.
+
+Download NRPE from https://www.nagios.org/
+
+cd /opt
+
+wget http://prdownloads.sourceforge.net/sourceforge/nagios/nrpe-2.13.tar.gz
+
+tar -zxvf nrpe-2.13.tar.gz
+
+cd nrpe-2.13
+
+./configure --prefix=/nagios --with-nagios-group=nagcmd
+
+./install-sh /nagios
+
+chown -R nagios:nagcmd nagios/

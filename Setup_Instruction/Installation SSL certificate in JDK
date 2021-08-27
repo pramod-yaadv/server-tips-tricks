@@ -1,0 +1,32 @@
+Installation SSL certificate in JDK
+
+1) Copy GTA certificate in /tmp
+
+2) Stop the jboss server.
+
+3) keytool -importcert -alias test -file /tmp/SSL-Cert.cer -keystore /usr/java/jdk1.6.0_10/jre/lib/security/cacerts  -storepass password
+
+4) Start the jboss server.
+
+How to remove SSL certificate in JDK
+
+1) Stop the jboss server.
+
+2) usr/java/jdk1.6.0_10/bin/keytool -delete -alias test -keystore /usr/java/jdk1.6.0_10/jre/lib/security/cacerts 
+
+after that it will ask for password which you have entered while importing certificate.
+
+3) Now start the Jboss server.
+
+########################################################################
+Below steps for Installation of SSL certificate in Ubuntu
+
+Import Certificate in Ubuntu
+
+keytool -importcert -alias test -file /tmp/DigiCertHighAssuranceEVRootCA.crt  -keystore /usr/lib/jvm/java-6-openjdk-i386/jre/lib/security/cacerts -storepass password
+
+Delete Certificate from Ubuntu
+/usr/lib/jvm/java-6-openjdk-i386/bin/keytool -delete -alias test -keystore /usr/lib/jvm/java-6-openjdk-i386/jre/lib/security/cacerts
+
+Check Certificate in Ubuntu
+keytool -list -v -keystore /usr/lib/jvm/java-6-openjdk-i386/jre/lib/security/cacerts

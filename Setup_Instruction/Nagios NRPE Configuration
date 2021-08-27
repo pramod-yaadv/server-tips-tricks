@@ -1,0 +1,66 @@
+Nagios NRPE Configuration
+
+Nagios Remote Plugin Executor (NRPE), is used by nagios to run commands remotely on linux servers. We have to install NRPE in remote machince for Monitoring Clients.
+
+How to install NRPE.
+
+sudo yum install nrpe -y
+
+How to start stop nrep service.
+
+/etc/init.d/nrpe start | stop | restartow
+
+Open "/etc/services" file make below entry and save it. 
+
+vim /etc/services
+
+nrpe            5666/nrpe                       #nrpe
+
+Now open /etc/xinetd.d/nrpe and make changes like 
+
+only_from       = 192.168.55.230 (Server IP)
+
+Now Login to Nagios Server and Check NRPE configuration is working fine or not..?
+
+How to Verify NRPE is working fine.
+
+Go to
+
+cd /usr/lib64/nagios/plugins/
+
+or where your Plugins are installed.
+
+./check_nrpe -H Client_IP
+
+For example in our envirnment.
+
+cd /nagios/libexec
+
+./check_nrpe -H 192.168.55.181
+
+You wil get output like 
+
+[root@nagios libexec]# ./check_nrpe -H 192.168.55.181
+NRPE v2.12
+[root@nagios libexec]#
+
+Means NRPE is working properly means Nagios server is able to communicate with remote server.
+
+Now again Login client or remote server.
+
+In remote server for NRPE we have to make changes in /etc/nagios/nrpe.cfg file.
+
+Now we have to configure remote server in Nagios Server. So we need to re-login Nagios Server.
+
+How to configure remote server in Nagios.
+First we have to configure NRPE command. So Open /nagios/etc/objects/commands.cfg file and copy paste below syntex.
+
+define command{
+        command_name check_nrpe
+        command_line $USER1$/check_nrpe -H $HOSTADDRESS$ -t 30 -c $ARG1$
+        }
+
+Open Remote server cfg file and configure nrpe service after each changes of nrpe we have to reload Nagios server.
+
+
+

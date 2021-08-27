@@ -1,0 +1,51 @@
+Install and Configure Piwik Web Analytics Tool.
+
+What is Piwik.?
+Piwik is an open-source and free alternative to Google Analytics tool. It tracks and displays reports about the location of user visits, Where they came from (i.e website, directly, or something else), the visitors browser, screen size, operating system details, what the visitors did on your website, the time of visits and more.
+
+Required Applications.
+1. Apache
+2. PHP
+3. MySQL
+
+Login to MySQL server and create database for Piwik.
+
+Below the steps for Piwik Database Creation. 
+
+mysql> create database piwikdb;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> GRANT ALL PRIVILEGES ON piwikdb.* TO 'piwikuser' IDENTIFIED BY 'piwik';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> exit
+Bye
+
+Database part has been over.
+############################################## 
+Now we have to configure piwik.
+
+cd /opt/
+
+wget http://builds.piwik.org/latest.zip
+
+unzip latest.zip
+
+Now mv piwik setup directory in your DocumentRoot.
+
+chmod a+w piwik/tmp
+
+chmod a+w /piwik/config/config.ini.php
+
+vim /piwik/config/config.ini.php
+
+make database regarding changes in above file.
+##################################################
+
+Now configure the Virtual Host and restart the apache web server.
+
+Open browser and type http://localhost/piwik
+
